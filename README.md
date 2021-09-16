@@ -8,3 +8,5 @@ Usage:
 - it has helper methods ```fan_speed``` and ```set_fan_speed_percentage```
 
 Work in progress.
+
+Feel free to report any issues!
