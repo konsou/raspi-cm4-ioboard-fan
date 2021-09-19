@@ -1,1 +1,0 @@
-from fan import RaspiCM4IOBoardFanSensor

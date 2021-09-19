@@ -1,7 +1,7 @@
 from types import ModuleType
 
-from i2c_pkg import i2c as i2c_module
-from i2c_pkg.emc2301_pkg import emc2301
+from .i2c_pkg import i2c as i2c_module
+from .i2c_pkg.emc2301_pkg import emc2301
 
 
 class RaspiCM4IOBoardFanSensor(emc2301.EMC2301):
@@ -22,3 +22,8 @@ class RaspiCM4IOBoardFanSensor(emc2301.EMC2301):
         """Percentage should be 0 - 100"""
         converted_value = int(percentage / 100 * 255)
         self.write_register(register='FAN_SETTING', value=converted_value)
+
+
+if __name__ == '__main__':
+    s = RaspiCM4IOBoardFanSensor()
+    s.set_fan_speed_percentage(100)
