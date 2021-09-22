@@ -1,3 +1,4 @@
+import sys
 from types import ModuleType
 
 from i2c_pkg import i2c as i2c_module
@@ -22,3 +23,24 @@ class RaspiCM4IOBoardFanSensor(emc2301.EMC2301):
         """Percentage should be 0 - 100"""
         converted_value = int(percentage / 100 * 255)
         self.write_register(register='FAN_SETTING', value=converted_value)
+
+
+if __name__ == '__main__':
+    fan = RaspiCM4IOBoardFanSensor()
+    if sys.argv[1] == 'set':
+        try:
+            fan.set_fan_speed_percentage(int(sys.argv[2]))
+        except ValueError:
+            print(f'Incorrect speed percentage value: {sys.argv[2]}')
+            sys.exit(1)
+        sys.exit(0)
+
+    if sys.argv[1] == 'get':
+        print(f'Current fan speed: {fan.fan_speed()} RPM')
+        sys.exit(0)
+
+    print(f'Unknown command.')
+    print(f'Supported commands:')
+    print(f'{sys.argv[0]} set (speed in percentage)')
+    print(f'{sys.argv[0]} get')
+
