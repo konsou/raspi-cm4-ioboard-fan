@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     fan = RaspiCM4IOBoardFanSensor()
     if sys.argv[1] == 'set':
-        print(f'Setting fan speed to {sys.argv[1]}%')
+        print(f'Setting fan speed to {sys.argv[2]}%')
         try:
             fan.set_fan_speed_percentage(int(sys.argv[2]))
         except ValueError:
