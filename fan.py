@@ -26,9 +26,20 @@ class RaspiCM4IOBoardFanSensor(emc2301.EMC2301):
         self.write_register(register='FAN_SETTING', value=converted_value)
 
 
+def print_help():
+    print(f'Supported commands:')
+    print(f'{sys.argv[0]} set (speed in percentage)')
+    print(f'{sys.argv[0]} get')
+
+
 if __name__ == '__main__':
+    if len(sys.argv) <= 1:
+        print_help()
+        sys.exit(1)
+
     fan = RaspiCM4IOBoardFanSensor()
     if sys.argv[1] == 'set':
+        print(f'Setting fan speed to {sys.argv[1]}%')
         try:
             fan.set_fan_speed_percentage(int(sys.argv[2]))
         except ValueError:
@@ -41,7 +52,7 @@ if __name__ == '__main__':
         sys.exit(0)
 
     print(f'Unknown command.')
-    print(f'Supported commands:')
-    print(f'{sys.argv[0]} set (speed in percentage)')
-    print(f'{sys.argv[0]} get')
+    print_help()
+    sys.exit(1)
+
 
